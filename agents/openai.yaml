@@ -1,0 +1,7 @@
+interface:
+  display_name: "Unvibe Code"
+  short_description: "Active code understanding drills."
+  default_prompt: "Use $unvibe-code to inspect this code, teach or test me in short layers, and pause for my answers."
+
+policy:
+  allow_implicit_invocation: true
