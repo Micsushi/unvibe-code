@@ -1,7 +1,7 @@
 interface:
   display_name: "Unvibe Code"
-  short_description: "Active code understanding drills."
-  default_prompt: "Use $unvibe-code to inspect this code, teach or test me in short layers, and pause for my answers."
+  short_description: "Code and technical understanding drills."
+  default_prompt: "Use $unvibe-code only when I explicitly ask to unvibe a topic. Ask how well I know it unless I already gave a clear signal, then teach, mix, test, or probe in short layers."
 
 policy:
-  allow_implicit_invocation: true
+  allow_implicit_invocation: false

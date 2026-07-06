@@ -56,15 +56,18 @@ unvibe codebase
 unvibe current changes
 unvibe this PR
 unvibe auth, I do not know how it works
+unvibe RAG
 unvibe src/auth/session.ts
-test my understanding of this file
-teach me this code without info dumping
 ```
 
 ## What It Does
 
-- Starts with the right scope: codebase, PR, current changes, file, function, flow, test, or bug.
-- Asks how comfortable you are first, then picks the mode: comfortable means it tests you, not comfortable means it explains, in the middle means a mix, and not sure means it probes and adapts as it learns what you know.
+- Starts with the right scope: codebase, PR, current changes, file, function, flow, test, bug, or technical concept.
+- Runs only when you explicitly ask to `unvibe` something.
+- Asks how well you know the topic first: no idea, kinda know it, expert, or not sure.
+- Routes by confidence: no idea teaches, kinda know it mixes teaching and checks, expert tests first, and not sure runs a five-question probe before choosing a mode.
+- Uses Feynman explanations, worked examples, retrieval practice, misconception checks, concept maps, and tiny application tasks when teaching is needed.
+- For technical concepts without matching repo code, says so and uses a concrete toy example or system map.
 - Checks whether technical terms are familiar before relying on them, and defines the ones you do not know.
 - Keeps explanations short and tied to the bigger picture.
 - Asks relationship questions so you connect components, files, methods, and logic.
@@ -73,10 +76,16 @@ teach me this code without info dumping
 
 ## Core Rule
 
-No essays. No broad summaries that replace reading. Unvibe Code teaches in layers:
+No essays. No broad summaries that replace reading. For code-backed scopes, Unvibe Code teaches in layers:
 
 ```text
 scope map -> component -> file -> method -> logic -> relationship check -> next
+```
+
+For pure technical concepts, it teaches in layers:
+
+```text
+concept map -> workflow -> core mechanism -> toy example -> tradeoff -> application check -> next
 ```
 
 If a topic is large, it gives a compact map and waits for `next`.

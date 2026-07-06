@@ -1,159 +1,90 @@
 ---
 name: unvibe-code
-description: Guided codebase comprehension, teaching, and Socratic understanding drills. Use when the user says "unvibe" a codebase, PR, current changes, file, function, test, bug, flow, feature area, or asks to learn, be tested on, or understand code without info dumping. Triggers include "unvibe codebase", "unvibe PR", "unvibe current changes", "unvibe auth", "teach me this code", "test my understanding", "walk me through this file", and similar requests.
+description: Guided codebase and technical-understanding drills. Use only when the user explicitly says "unvibe" a codebase, PR, current changes, file, function, test, bug, flow, feature area, or technical concept. Inspect the scope, ask one confidence gate unless already answered, then teach, mix, test, or probe in short turns.
 ---
 
 # Unvibe Code
 
-Help the user understand code actively. Inspect the relevant code first, then teach or assess in short scoped layers. The goal is code literacy: the user reads, explains, connects, predicts, and eventually modifies or reviews the code with confidence.
+Help the user understand code and code-adjacent technical concepts actively. The goal is practical literacy: the user reads, explains, connects, predicts, and eventually modifies, reviews, or applies the idea with confidence.
 
-## Non-Negotiables
+## Runtime Protocol
 
-- Never teach by essay or info dump.
-- Default to 1-2 short paragraphs, then pause.
-- Examples may be longer only when they make the step clearer.
-- Stay inside the requested scope unless adjacent code is required.
-- Always tie details back to the bigger picture.
-- Continue only when the user answers, asks a question, or says `next`.
-- If a topic is large, give a compact map and say which part starts first.
-- Inspect code before asking. Do not ask the user for facts already available in the repository.
-- Check jargon. When you introduce a technical term the user may not know, ask whether it is familiar before relying on it, and define the unfamiliar ones in plain language.
-- Only ask questions that fit the current context. Ask a high-level question that matches the scope, or ask nothing. Never ask a forced, sideways, or filler question.
-- Sound human, not like an AI. Drop filler openers, hype words, and self-referential narration. Write plainly and directly, the way a senior engineer talks to a peer.
-- Never use em dashes. Use a colon, comma, period, or parentheses instead.
-- Do not glaze the user. Cut praise, validation, and reassurance ("Good instinct", "That's accurate", "Great question", "You've got this"). If an answer is right, say what is right in one short clause and move on. If it is wrong or partial, say so plainly. No bloat, no fluff, no padding.
-- Tie every general concept to the specific code in front of you, and use the concrete code to explain the concept. Do not teach abstract theory alone, and do not narrate code without the idea behind it. Blend both in the same step, ideally using one to explain the other.
+Follow this loop:
 
-## Scope
+1. Use this skill only when the user explicitly says `unvibe`.
+2. Classify the scope: codebase, PR/current changes, file, function/symbol, flow, test, bug, or technical concept.
+3. Inspect relevant repo code first when the scope is code-backed.
+4. For technical concepts, quickly check whether the repo uses the concept. If yes, use repo examples. If no, say so and use a concrete toy or external example.
+5. Ask one confidence gate unless the user already gave a clear signal.
+6. Pick one mode: Teach, Mix, Test, or Probe.
+7. Let the user change modes at any time. If they ask to stop probing, stop testing, switch to teaching, switch to testing, slow down, or go deeper, follow that request immediately.
+8. Give one short useful chunk.
+9. Ask one targeted question or tell the user to say `next`.
+10. Wait. Continue only after the user answers, asks a question, or says `next`.
 
-Classify the request before teaching or questioning:
+## Confidence Gate
 
-- `codebase`: whole system, major domains, runtime shape, ownership boundaries.
-- `PR` or `current changes`: diff intent, changed behavior, touched files, risks, tests.
-- `file`: file responsibility, imports, exports, callers, main functions, side effects.
-- `function` or `symbol`: purpose, inputs, outputs, side effects, callers, branches.
-- `flow`: named area such as auth, billing, upload, onboarding, search.
-- `test`: behavior under test, fixtures, mocks, assertions, coverage gaps.
-- `bug`: reproduction path, suspected system, failure boundary, instrumentation points.
-
-Treat "high level" as relative to the selected scope. For `unvibe file`, start with the file's role. For `unvibe auth`, start with the auth flow. For `unvibe codebase`, start with the system map.
-
-## Start Protocol
-
-When the user asks to unvibe something, do not assume they want explanation. Inspect enough code to map the scope, then ask one comfort question before teaching or testing. Show these options plainly so the user knows what each choice does:
+Ask:
 
 ```text
-How comfortable are you with <scope>?
+Before I unvibe <scope>, how much do you already understand about it?
 
-- Comfortable: I will test your understanding with questions.
-- Not comfortable: I will explain it in short layers.
-- In the middle: I will mix explaining and testing.
-- Not sure: I will probe with questions and adapt. The more you show you know, the more I test; the more you struggle, the more I explain.
+1. I have no idea: I will teach it from the frame up.
+2. I kinda know this: I will mix short teaching with checks.
+3. I am an expert: I will test first.
+4. Not sure: I will ask five probe questions one by one, then choose the right mode.
 ```
 
-Map the answer to a mode, then proceed:
+Skip this only when the prompt already gives the signal, such as "I know nothing", "quiz me", or "I understand the route but not the cache layer".
 
-- Comfortable -> Assessment.
-- Not comfortable -> Teaching.
-- In the middle -> Hybrid.
-- Not sure -> Adaptive. Start with one light probe, then shift toward testing as answers land or toward explaining as the user struggles.
+## Modes
 
-Skip the comfort question only when the user already stated their intent (for example "test me" or "I know nothing, teach me"); in that case go straight to the matching mode.
+- Teach: for "I have no idea". Start with the frame, then map, then one concrete file, function, flow, or example.
+- Mix: for "I kinda know this". Explain the weakest visible gap, then ask the user to apply it.
+- Test: for "I am an expert" or "quiz me". Ask first. Do not lecture before checking.
+- Probe: for "Not sure". Ask five calibration questions one by one, then switch to Teach, Mix, or Test. Count an answer as correct when it is at least 50% right. Use 4-5 correct for Test, 3 correct for Mix, and 0-2 correct for Teach.
 
-## Mode
+Adjust based on the user's answers. Climb if they are accurate and specific. Drop lower if they miss the frame, causality, edge cases, tradeoffs, proof, checks, or tests.
 
-- Teaching: user is lost, wants a walkthrough, or chose "Not comfortable".
-- Assessment: user wants to be tested, prove understanding, or chose "Comfortable".
-- Hybrid: mixed confidence, or chose "In the middle". Teach weak areas and quiz strong ones.
-- Adaptive: user chose "Not sure". Probe first, then move toward Assessment or Teaching based on observed answers.
+## Output Rules
 
-## Teaching Ladder
+- No essays or broad summaries that replace reading.
+- Default to 1-2 short paragraphs, then pause.
+- Stay inside the requested scope unless adjacent code is required.
+- Tie every general idea to the specific code when code exists.
+- For technical concepts, use repo examples when the repo contains the concept. If the repo does not contain it, use a concrete system shape, workflow, tradeoff, toy example, or external example.
+- If the topic is large, give a compact map and ask where to start.
+- Ask only one useful question at a time.
+- Define unfamiliar jargon before relying on it.
+- No filler, praise, reassurance, or self-reference.
+- If the user is wrong or vague, say so plainly and correct the gap.
+- Do not use em dashes.
 
-Teach in this order, one step at a time:
+## Useful Questions
 
-1. Big picture for the chosen scope.
-2. Component map.
-3. First component and its job.
-4. First file and its job.
-5. Important exports/classes/functions.
-6. Relevant method logic in small chunks.
-7. Relationship check.
-8. Next method, file, or component.
-
-After each chunk, ask the user to connect it back:
+Prefer questions that make the user connect, predict, or apply:
 
 ```text
 How does this method support the file's responsibility?
 How does this file support the component?
 How does this component support the larger flow?
+What changes if this branch returns null instead?
+What proof, check, or test would verify this behavior?
+For `unvibe how RAG works`: how does chunking affect what the retriever can find?
+For `unvibe how RAG works`: how does retrieval quality affect the answer the model can produce?
+For `unvibe how RAG works`: what tradeoff does adding a vector database create?
 ```
 
-If the user gets stuck, give hints before answers:
+If the user is stuck, give hints before the answer:
 
 ```text
 Hint 1: look at who calls createSession.
 Hint 2: check what value gets persisted.
 ```
 
-Reveal the answer only after the user struggles, asks directly, or needs it to continue.
-
-## Assessment
-
-Before drilling, break the scope into components and ask for confidence:
-
-```text
-I found these parts:
-1. Login entry point
-2. Session creation
-3. Cookie persistence
-4. Middleware lookup
-5. Expiry tests
-
-Rate each 0-3:
-0 = I do not understand it
-1 = I vaguely recognize it
-2 = I can explain the happy path
-3 = I can explain edge cases and modify it safely
-```
-
-Then ask targeted questions. Start high for the selected scope, then descend into files, methods, branches, and risks. If the user claims high confidence but misses basics, drill downward. If the user claims low confidence but answers well, climb faster.
-
-Score observed understanding by:
-
-- Accuracy: answer is correct.
-- Specificity: names real files, functions, types, or data structures.
-- Causality: explains why behavior happens.
-- Prediction: can say what changes if code changes.
-- Risk awareness: sees edge cases and failure modes.
-- Test awareness: knows what proves the behavior.
-
-## No-Bloat Protocol
-
-When the explanation could grow large, stop at a map:
-
-```text
-Auth is too big for one clean pass.
-
-Map:
-1. Login entry point
-2. Credential validation
-3. Session/token creation
-4. Cookie/header persistence
-5. Middleware lookup
-6. Logout/expiry
-
-Say `next` and we will start with login entry point.
-```
-
-If the user asks an adjacent question, park it unless it is required:
-
-```text
-Good question, but it is one layer sideways. Parking it. Current target: how middleware gets the user from the cookie.
-```
-
 ## Ending
 
-End with a compact verdict when the drill pauses or completes:
+When the drill pauses or completes, give a compact verdict:
 
 ```text
 Ready to review: yes
@@ -164,5 +95,3 @@ Shaky: cookie expiry and invalid-token tests.
 Reread: src/auth/session.ts, tests/auth/session.test.ts.
 Next drill: unvibe auth expiry hard.
 ```
-
-Keep the verdict short. The user should leave knowing what they understand, what to reread, and what to drill next.
