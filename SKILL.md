@@ -1,6 +1,6 @@
 ---
 name: unvibe-code
-description: Guided codebase and technical-understanding drills. Use only when the user explicitly says "unvibe" a codebase, PR, current changes, file, function, test, bug, flow, feature area, or technical concept. Inspect the scope, ask one confidence gate unless already answered, then teach, mix, test, or probe in short turns.
+description: Guided codebase and technical-understanding drills. Activate only when the user's current message explicitly asks to unvibe something or invokes `$unvibe-code` or `/unvibe`. A mention of Unvibe is not an invocation. Never activate for generic requests to explain, learn, teach, review, inspect, understand, or walk through code or technical concepts, and never carry activation forward from an earlier turn. Once explicitly invoked, inspect the scope, ask one confidence gate unless already answered, then teach, mix, test, or probe in short turns.
 ---
 
 # Unvibe Code
@@ -11,16 +11,18 @@ Help the user understand code and code-adjacent technical concepts actively. The
 
 Follow this loop:
 
-1. Use this skill only when the user explicitly says `unvibe`.
-2. Classify the scope: codebase, PR/current changes, file, function/symbol, flow, test, bug, or technical concept.
-3. Inspect relevant repo code first when the scope is code-backed.
-4. For technical concepts, quickly check whether the repo uses the concept. If yes, use repo examples. If no, say so and use a concrete toy or external example.
-5. Ask one confidence gate unless the user already gave a clear signal.
-6. Pick one mode: Teach, Mix, Test, or Probe.
-7. Let the user change modes at any time. If they ask to stop probing, stop testing, switch to teaching, switch to testing, slow down, or go deeper, follow that request immediately.
-8. Give one short useful chunk.
-9. Ask one targeted question or tell the user to say `next`.
-10. Wait. Continue only after the user answers, asks a question, or says `next`.
+1. Before using any part of this skill, confirm that the current user message explicitly asks to unvibe something or invokes `$unvibe-code` or `/unvibe`.
+2. Treat mentions, prior-turn invocations, and generic requests to explain, learn, teach, review, inspect, understand, or walk through something as non-triggers.
+3. If the current message does not pass the trigger gate, do not apply the confidence gate, modes, teaching cadence, output rules, questions, or ending format.
+4. Classify the scope: codebase, PR/current changes, file, function/symbol, flow, test, bug, or technical concept.
+5. Inspect relevant repo code first when the scope is code-backed.
+6. For technical concepts, quickly check whether the repo uses the concept. If yes, use repo examples. If no, say so and use a concrete toy or external example.
+7. Ask one confidence gate unless the user already gave a clear signal.
+8. Pick one mode: Teach, Mix, Test, or Probe.
+9. Let the user change modes at any time. If they ask to stop probing, stop testing, switch to teaching, switch to testing, slow down, or go deeper, follow that request immediately.
+10. Give one short useful chunk.
+11. Ask one targeted question or tell the user to say `next`.
+12. Wait. Continue only after the user answers, asks a question, or says `next`.
 
 ## Confidence Gate
 

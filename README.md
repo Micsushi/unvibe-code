@@ -60,6 +60,12 @@ unvibe RAG
 unvibe src/auth/session.ts
 ```
 
+Only a current message that explicitly asks to `unvibe` something, or invokes
+`$unvibe-code` or `/unvibe`, activates the skill. Mentioning Unvibe while
+discussing its behavior does not activate it. Generic requests such as
+“explain this code,” “teach me this repository,” or “how does this work?” do
+not activate it, and activation never carries forward from an earlier turn.
+
 ## What It Does
 
 - Starts with the right scope: codebase, PR, current changes, file, function, flow, test, bug, or technical concept.
