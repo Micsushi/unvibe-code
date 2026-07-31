@@ -1,31 +1,12 @@
-# Linux Compatibility Notes
+# Linux Compatibility
 
-Audit date: 2026-07-03
+Unvibe Code contains Markdown and YAML only, with no platform-specific runtime.
+Installation requires one of these tools:
 
-## Status
+- Node.js and npm for `npx skills add`
+- GitHub CLI with `gh skill` support
 
-Compatible in principle. This repo is a skill package made of Markdown/YAML instructions, with no build or runtime code found.
-
-## What Was Tested
-
-- File and manifest inspection.
-- No package manifest, build script, or test script was found.
-- Host has GitHub CLI, but Node/npm are not installed.
-
-## What Should Work On Linux
-
-- Using the skill after it is installed into a supported agent.
-- GitHub CLI based installation if the local `gh skill` command is available.
-- `npx skills add ...` after Node/npm are installed.
-
-## Linux Blockers
-
-- No repo-level blocker found.
-- External installer tooling is required:
-  - Node/npm for `npx skills add`
-  - or GitHub CLI skill support for `gh skill install`
-
-## Suggested Ubuntu Smoke Path
+## Install Check
 
 ```bash
 node --version
@@ -33,7 +14,13 @@ npm --version
 npx skills add Micsushi/unvibe-code
 ```
 
-For Codex specifically:
+Or use GitHub CLI:
+
+```bash
+gh skill install Micsushi/unvibe-code unvibe-code
+```
+
+For a global Codex install:
 
 ```bash
 npx skills add Micsushi/unvibe-code -g -a codex

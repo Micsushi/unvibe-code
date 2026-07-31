@@ -63,7 +63,7 @@ unvibe src/auth/session.ts
 Only a current message that explicitly asks to `unvibe` something, or invokes
 `$unvibe-code` or `/unvibe`, activates the skill. Mentioning Unvibe while
 discussing its behavior does not activate it. Generic requests such as
-“explain this code,” “teach me this repository,” or “how does this work?” do
+"explain this code," "teach me this repository," or "how does this work?" do
 not activate it, and activation never carries forward from an earlier turn.
 
 ## What It Does
@@ -102,7 +102,13 @@ If a topic is large, it gives a compact map and waits for `next`.
 SKILL.md
 agents/openai.yaml
 README.md
+LINUX_COMPATIBILITY.md
+MACOS_COMPATIBILITY.md
+ui-design.md
 LICENSE
 ```
 
-`SKILL.md` is the runtime skill. The other files make the repository easier to install, inspect, and reuse.
+`SKILL.md` contains the runtime instructions. `agents/openai.yaml` supplies the
+OpenAI interface metadata and invocation policy. The compatibility notes cover
+platform prerequisites, and `ui-design.md` documents the conversational
+interface.
