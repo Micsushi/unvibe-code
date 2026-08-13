@@ -1,6 +1,6 @@
 ---
 name: unvibe-code
-description: Guided codebase and technical-understanding drills. Activate only when the user's current message explicitly asks to unvibe something or invokes `$unvibe-code` or `/unvibe`. A mention of Unvibe is not an invocation. Never activate for generic requests to explain, learn, teach, review, inspect, understand, or walk through code or technical concepts, and never carry activation forward from an earlier turn. Once explicitly invoked, inspect the scope, ask one confidence gate unless already answered, then teach, mix, test, or probe in short turns.
+description: Use only when the current message explicitly asks to use Unvibe Code, asks to unvibe code or a technical concept, or invokes `$unvibe-code` or `/unvibe`. Also use when that explicit request has clear case, spacing, hyphenation, or known voice-transcription variants. Do not use for mere mentions, generic explanation requests, examples, or prior-turn activation.
 ---
 
 # Unvibe Code
@@ -11,7 +11,7 @@ Help the user understand code and code-adjacent technical concepts actively. The
 
 Follow this loop:
 
-1. Before using any part of this skill, confirm that the current user message explicitly asks to unvibe something or invokes `$unvibe-code` or `/unvibe`.
+1. Before using any part of this skill, confirm that the current user message explicitly asks to use Unvibe Code, asks to unvibe something, or invokes `$unvibe-code` or `/unvibe`. Accept clear name variants.
 2. Treat mentions, prior-turn invocations, and generic requests to explain, learn, teach, review, inspect, understand, or walk through something as non-triggers.
 3. If the current message does not pass the trigger gate, do not apply the confidence gate, modes, teaching cadence, output rules, questions, or ending format.
 4. Classify the scope: codebase, PR/current changes, file, function/symbol, flow, test, bug, or technical concept.
